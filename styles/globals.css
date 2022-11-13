@@ -1,10 +1,72 @@
+@import url('https://fonts.googleapis.com/css2?family=Sono:wght@400;500;600;700;800&display=swap');
+
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+  font-family: 'Sono', sans-serif, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  background: #eee;
+  box-sizing: border-box;
 }
+
+.card::before {
+  content: "";
+  position: absolute;
+  visibility: hidden;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(75, 75, 75, 0.458);
+  opacity: 0;
+  transition: all 300ms ease-out;
+  border-radius: 0.75rem;
+}
+
+input[type="text"]:focus, input[type="date"]:focus {
+  outline: none;
+  border: 1px solid rgb(255, 255, 19);
+  transition: all 150ms ease-in-out;
+}
+
+input[type="date"] {
+  user-select: none;
+}
+
+input[type="submit"] {
+  transition: all 200ms ease-in-out;
+}
+
+.card {
+  transition: all 150ms ease-in-out;
+}
+
+.btn {
+  transition: all 200ms ease-in-out;
+}
+
+.create-from {
+  display: none !important;
+  background: #000;
+  transition: visibility 0s, opacity 200ms ease-in-out;
+}
+
+.card:hover::before {
+  opacity: 1;
+  visibility: visible;
+  transition: visibility 0s, opacity 150ms ease-in-out;
+}
+
+.edit {
+  transition: 300ms ease-out;
+  transition-delay: 100ms;
+}
+
+.card:hover .edit {
+  opacity: 1;
+}
+
 
 @tailwind base;
 @tailwind components;
