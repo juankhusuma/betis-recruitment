@@ -58,7 +58,7 @@ export default function Home(props: { res: GetRotiData }) {
                 );
                 const json = await res.json();
                 setLoading(false);
-                setData([...data, json as any]);
+                setData((data) => [...data, json.data as any]);
                 setOpenForm(false);
               }}
             >
@@ -123,8 +123,6 @@ export default function Home(props: { res: GetRotiData }) {
                 image={image}
                 id={id}
                 idx={idx}
-                // id={id},
-                // idx={idx}
               />
             ))}
           </div>

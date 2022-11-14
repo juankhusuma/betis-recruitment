@@ -5,7 +5,6 @@ import { CardContext } from "../context/CardContext";
 import CardDelete from "./CardDelete";
 import CardEdit from "./CardEdit";
 export interface CardProps {
-  key: number;
   name: string;
   expired_date: string | Date;
   description: string;
@@ -15,7 +14,6 @@ export interface CardProps {
 }
 
 const Card: React.FC<CardProps> = ({
-  key,
   name,
   description,
   expired_date,
@@ -26,8 +24,7 @@ const Card: React.FC<CardProps> = ({
   const [openEdit, setOpenEdit] = useState<boolean>(false);
   const [openDelete, setOpenDelete] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
-  const [data, setData] = useState({
-    key,
+  const [data, setData] = useState<CardProps>({
     name,
     description,
     expired_date,
@@ -69,7 +66,7 @@ const Card: React.FC<CardProps> = ({
             {data.name}
           </h1>
           <h2 className="text-sm font-semibold text-orange-600">
-            Expired Date: {data.expired_date.toString()}
+            Expired Date: {data.expired_date as string}
           </h2>
           <h2 className="text-xs">{data.description}</h2>
         </div>

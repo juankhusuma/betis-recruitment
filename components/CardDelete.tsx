@@ -15,7 +15,7 @@ const CardDelete: React.FC = () => {
       } bg-[#eee]/80 rounded-xl flex justify-center items-center text-center flex-col transition-all backdrop-blur-sm absolute left-0 w-full h-full`}
     >
       Apakah anda ingin menghapus data ini?
-      <div className="flex justify-evenly items-center flex-col w-[100px] h-1/3">
+      <div className="flex justify-evenly items-center flex-col w-[200px] h-1/3">
         <button
           onClick={async () => {
             setLoading(true);

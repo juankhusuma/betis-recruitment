@@ -1,10 +1,15 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { IoIosCloseCircleOutline } from "react-icons/io";
 import { CardContext } from "../context/CardContext";
+import { formatDate } from "../lib/utils";
+import { CardProps } from "./Card";
 
 const CardEdit: React.FC = () => {
-  const { openDelete, openEdit, setOpenDelete, setOpenEdit, data, setData } =
+  const { openEdit, setOpenDelete, setOpenEdit, data, setData } =
     useContext(CardContext);
+
+  const [loading, setLoading] = useState<boolean>(false);
+
   return (
     <form
       className={`${
@@ -12,15 +17,33 @@ const CardEdit: React.FC = () => {
       } bg-[#474554]/80 rounded-xl transition-all backdrop-blur-sm absolute left-0 w-full h-full`}
       onSubmit={async (e) => {
         e.preventDefault();
-        const form = e.target as HTMLFormElement;
-        const formData = new FormData(form);
-        const data = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/roti`, {
-          body: formData,
-          method: "UPDATE",
-          headers: {
-            Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_TOKEN}`,
-          },
-        });
+        setLoading(true);
+        const input = (e.target as HTMLFormElement)?.elements as any;
+        const formData = new FormData();
+        input?.name?.value && formData.append("name", input?.name?.value);
+        input?.description?.value &&
+          formData.append("description", input?.description?.value);
+        input?.image?.value && formData.append("image", input?.image?.files[0]);
+        input?.expired_date?.value &&
+          formData.append(
+            "expired_date",
+            formatDate(input?.expired_date?.value)
+          );
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/roti/${(data as CardProps).id}`,
+          {
+            body: formData,
+            method: "PATCH",
+            headers: {
+              Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_TOKEN}`,
+            },
+          }
+        );
+        const json = await res.json();
+        console.log(json);
+        setData(() => json.data);
+        setLoading(false);
+        setOpenEdit(false);
       }}
     >
       <IoIosCloseCircleOutline
@@ -63,7 +86,7 @@ const CardEdit: React.FC = () => {
         <input
           className="py-2 mt-20 shadow-xl cursor-pointer bg-slate-300 rounded-xl hover:shadow-none hover:bg-slate-400 active:bg-slate-500"
           type="submit"
-          value="Update"
+          value={loading ? "Loading..." : "Update"}
         />
         <button
           onClick={(e) => {
