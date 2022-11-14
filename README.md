@@ -1,4 +1,4 @@
-# Tugas Oprec BETIS FASILKOM UI 2022/2023
+# TUGAS OPREC BETIS FASILKOM UI 2022/2023
 Website roti, dengan implementasi CRUD REST API
 Dibuat dengan:
 - Next.js
